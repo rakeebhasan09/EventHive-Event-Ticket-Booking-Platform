@@ -17,4 +17,25 @@ const signUpUser = async (req: Request, res: Response) => {
     }
 };
 
-export const authController = { signUpUser };
+const loginUser = async (req: Request, res: Response) => {
+    try {
+        const { email, password } = req.body;
+        const result = await authService.loginUserWithCredentials(
+            email,
+            password,
+        );
+
+        res.status(200).json({
+            success: true,
+            message: "Login successful",
+            data: result,
+        });
+    } catch (error: any) {
+        res.status(error.statusCode).json({
+            success: false,
+            message: error?.message,
+        });
+    }
+};
+
+export const authController = { signUpUser, loginUser };

@@ -31,4 +31,16 @@ const createUserQuery = async (payload: IUser) => {
     return result;
 };
 
-export const authRepository = { createUserQuery };
+// Select User From Databse
+const selectUserFromDB = async (email: string) => {
+    const result = await pool.query(
+        `
+            SELECT * FROM users WHERE email = $1
+        `,
+        [email],
+    );
+
+    return result;
+};
+
+export const authRepository = { createUserQuery, selectUserFromDB };

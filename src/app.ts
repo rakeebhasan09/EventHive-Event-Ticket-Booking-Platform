@@ -3,12 +3,16 @@ import express, {
     type Request,
     type Response,
 } from "express";
-import cors from "cors";
+import { authRoute } from "./modules/auth/auth.route";
+// import cors from "cors";
 
 const app: Application = express();
 
 // Middlewares
 app.use(express.json());
+
+// Auth Routes
+app.use("/api/v1/auth", authRoute);
 
 app.get("/", (req: Request, res: Response) => {
     res.status(200).json({
